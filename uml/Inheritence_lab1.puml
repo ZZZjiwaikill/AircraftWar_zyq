@@ -1,0 +1,125 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class AbstractFlyingObject
+{
+    # locationX:int
+    # locationY:int
+    # speedX:int
+    # speedY:int
+    # image:BufferedImage
+    # width:int
+    # height:int
+    # isValid:boolean
+
+    + AbstractFlyingObject(int locationX, int locationY, int speedX, int speedY)
+    + forward():void
+    + crash(AbstractFlyingObject flyingObject):boolean
+    + setLocation(double locationX, double locationY):void
+    + getLocationX():int
+    + getLocationY():int
+    + getSpeedY():int
+    + getImage():BufferedImage
+    + getWidth():int
+    + getHeight():int
+    + notValid():boolean
+    + vanish():void
+}
+
+'1种英雄机+3种敌机
+abstract class AbstractAircraft
+{
+	# maxHp:int
+    # hp:int
+    + AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
+    + decreaseHp(int decrease):void
+    + getHp():int
+    + {abstract} shoot():List<BaseBullet>
+ }
+'英雄机'
+class HeroAircraft {
+    - shootNum:int
+    - power:int
+    - direction:int
+    + HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
+    + forward():void
+    + shoot():List<BaseBullet>
+}
+
+abstract class AbstractEnemy{
+}
+
+'普通敌机，送分怪
+class MobEnemy {
+    + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+    + forward():void
+    + shoot():List<BaseBullet>
+}
+'精英敌机
+class EliteEnemy{
+'    - shootNum:int
+'    - power:int
+'    - direction:int
+'    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp)
+'    + forward():void
+'    + shoot():List<BaseBullet>
+}
+'Boss敌机
+class BossEnemy{
+
+}
+
+AbstractAircraft <|-- HeroAircraft
+AbstractEnemy <|-- MobEnemy
+AbstractEnemy <|-- EliteEnemy
+AbstractEnemy <|-- BossEnemy
+AbstractAircraft <|-- AbstractEnemy
+
+
+'3种道具:火力道具、炸弹道具、加血道具
+abstract class GameItems{
+}
+
+class FirePowerItem{
+}
+
+class BombItem{
+}
+
+class HealthItem{
+}
+
+GameItems <|-- FirePowerItem
+GameItems <|-- BombItem
+GameItems <|-- HealthItem
+
+
+'2种子弹：英雄机子弹、敌机子弹'
+abstract class BaseBullet
+{
+    - power:int
+    + BaseBullet(int locationX, int locationY, int speedX, int speedY, int power)
+    + forward():void
+	+ getPower():int
+}
+
+class HeroBullet {
+    + HeroBullet(int locationX, int locationY,
+     int speedX, int speedY, int power)
+}
+
+class EnemyBullet {
+    + EnemyBullet(int locationX, int locationY,
+     int speedX, int speedY, int power)
+}
+
+BaseBullet <|-- HeroBullet
+BaseBullet <|-- EnemyBullet
+
+
+
+AbstractFlyingObject <|-- AbstractAircraft
+AbstractFlyingObject <|-- BaseBullet
+AbstractFlyingObject <|-- GameItems
+
+@enduml
