@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * 程序入口
+ * 整个程序入口
  * @author hitsz
  */
 public class Main {
